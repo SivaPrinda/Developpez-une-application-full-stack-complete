@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.models;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,6 +17,7 @@ import java.util.List;
 @Table(name = "USERS")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -23,13 +25,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "created_at")
