@@ -43,8 +43,8 @@ public class SwaggerConfig {
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
                 .info(new Info()
-                        .title("Chatop REST API")
+                        .title("MDD REST API")
                         .version("1.0")
-                        .contact(new Contact().name("Lucas Mercier").email( "pro@lucasmercier.com")));
+                        .contact(new Contact().name("Test test").email( "pro@test.com")));
     }
 }

@@ -41,4 +41,7 @@ public interface IUserService extends UserDetailsService {
      * @throws ResponseEntityException If the credentials are invalid.
      */
     String login(LoginUserDTO login);
+
+    void logout(String token);
+
 }

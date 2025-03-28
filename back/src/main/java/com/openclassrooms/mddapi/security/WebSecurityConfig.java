@@ -1,6 +1,9 @@
 package com.openclassrooms.mddapi.security;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +20,16 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.crypto.spec.SecretKeySpec;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    private TokenBlacklist tokenBlacklist;
 
     /**
      * Configures the JwtDecoder bean for decoding and validating JWT tokens.
@@ -57,6 +64,17 @@ public class WebSecurityConfig {
                         // All other endpoints require authentication.
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())) // Enable OAuth2 with JWT.
+                .addFilterBefore((request, response, chain) -> {
+                    String authHeader = ((HttpServletRequest) request).getHeader("Authorization");
+                    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                        String token = authHeader.substring(7);
+                        if (tokenBlacklist.isBlacklisted(token)) {
+                            ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            return;
+                        }
+                    }
+                    chain.doFilter(request, response);
+                }, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
