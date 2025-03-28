@@ -7,6 +7,8 @@ import com.openclassrooms.mddapi.dto.response.TokenDTO;
 import com.openclassrooms.mddapi.dto.response.UserDTO;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.IUserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +28,7 @@ public class AuthController {
      * @return a ResponseEntity containing a TokenDTO (the authentication token).
      */
     @PostMapping("/register")
-    public ResponseEntity<TokenDTO> signIn(@RequestBody RegisterUserDTO registerUser) {
+    public ResponseEntity<TokenDTO> signIn(@Valid @RequestBody RegisterUserDTO registerUser) {
         return ResponseEntity.ok(new TokenDTO(iUserService.register(registerUser)));
     }
 
@@ -51,6 +53,18 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getConnectedUser() {
         return ResponseEntity.ok(mapToUserDTO(iUserService.getConnectedUser()));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            iUserService.logout(token);
+            return ResponseEntity.ok("Logout successful");
+        } else {
+            return ResponseEntity.badRequest().body("Missing Token");
+        }
     }
 
     /**

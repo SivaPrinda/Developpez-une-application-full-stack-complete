@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repositories.UserRepository;
+import com.openclassrooms.mddapi.security.TokenBlacklist;
 import com.openclassrooms.mddapi.services.IJWTService;
 import com.openclassrooms.mddapi.services.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final IJWTService jwtService;
+    private final TokenBlacklist tokenBlacklist;
 
     /**
      * Loads user details by email (used as the username).
@@ -83,5 +85,10 @@ public class UserService implements IUserService {
         return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
             loggedUser, null, loggedUser.getAuthorities()
         ));
+    }
+
+    @Override
+    public void logout(String token) {
+        tokenBlacklist.blacklist(token);
     }
 }
