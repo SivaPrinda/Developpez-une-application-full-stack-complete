@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.services.impl;
 import com.openclassrooms.mddapi.Exception.ResponseEntityException;
 import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
+import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.security.TokenBlacklist;
@@ -26,6 +27,7 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final IJWTService jwtService;
     private final TokenBlacklist tokenBlacklist;
+    private final UserMapper userMapper; // Add UserMapper as a dependency
 
     /**
      * Loads user details by email (used as the username).
@@ -48,6 +50,7 @@ public class UserService implements IUserService {
         user.setEmail(registerUser.email());
         user.setPassword(passwordEncoder.encode(registerUser.password()));
         user = userRepository.save(user);
+
         // TWhen user is registered, the response will contain a JWT token
         return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
             user, null, user.getAuthorities()

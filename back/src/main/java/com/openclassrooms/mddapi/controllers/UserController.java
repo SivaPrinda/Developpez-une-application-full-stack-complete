@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.dto.response.UserDTO;
+import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class UserController {
 
     @Autowired
     private IUserService iUserService;
+    private UserMapper userMapper;
 
     /**
      * Retrieves a user by their ID.
@@ -27,23 +29,6 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(mapToUserDTO(iUserService.getUser(id)));
-    }
-
-    /**
-     * Converts a User entity to a UserDTO object.
-     * Used to structure and expose user data in a safe format.
-     *
-     * @param user the User entity to convert.
-     * @return a UserDTO containing the user's details.
-     */
-    private UserDTO mapToUserDTO(User user) {
-        return new UserDTO(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+        return ResponseEntity.ok(userMapper.toDto(iUserService.getUser(id)));
     }
 }
