@@ -34,6 +34,15 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_followed_topics",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "topic_id"})
+    )
+    private List<Topic> followedTopics;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
