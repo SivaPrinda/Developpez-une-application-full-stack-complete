@@ -1,0 +1,43 @@
+<mat-toolbar *ngIf="!isHomepage" color="basic" class="navbar">
+  <!-- Bouton menu burger visible uniquement sur mobile -->
+
+  <div class="navbar-left">
+    <img src="/assets/logo_p6.png" alt="logo" class="logo" />
+  </div>
+
+  <button mat-icon-button class="menu-button" (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <ng-container *ngIf="isLoggedIn">
+    <!-- Liens visibles uniquement sur les écrans larges -->
+    <div class="navbar-right desktop-only">
+      <a class="logout" (click)="logout()">Se déconnecter</a>
+      <a routerLink="/articles" routerLinkActive="active-link">Articles</a>
+      <a routerLink="/themes" routerLinkActive="active-link">Thèmes</a>
+      <button
+        mat-icon-button
+        routerLink="/profil"
+        routerLinkActive="active-link"
+      >
+        <mat-icon class="profile-button">account_circle</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container" hasBackdrop>
+  <!-- Menu latéral -->
+  <mat-sidenav #sidenav mode="over" position="end" class="sidenav">
+    <a class="logout" (click)="logout()">Se déconnecter</a>
+    <a routerLink="/articles" (click)="sidenav.close()">Articles</a>
+    <a routerLink="/themes" (click)="sidenav.close()">Thèmes</a>
+    <button mat-icon-button routerLink="/profil">
+      <mat-icon class="profile-button">account_circle</mat-icon>
+    </button>
+  </mat-sidenav>
+
+  <!-- Contenu principal -->
+  <mat-sidenav-content class="sidenav-content">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

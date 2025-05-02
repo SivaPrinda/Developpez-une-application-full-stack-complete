@@ -1,0 +1,72 @@
+.user-profile-container {
+  margin: 0 auto;
+  padding: 2rem;
+
+  .user-profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .save-btn {
+    align-self: center;
+    background-color: #7e61c9;
+    color: white;
+    font-weight: bold;
+    text-transform: none;
+  }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  .subscriptions-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr; /* 1 colonne sur les petits écrans */
+    }
+
+    .subscription-card {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h4 {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: #444;
+        flex-grow: 1;
+      }
+
+      button {
+        margin-top: 1rem;
+        align-self: center;
+        background-color: #a084dc;
+        color: white;
+      }
+    }
+  }
+}

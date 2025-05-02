@@ -1,0 +1,40 @@
+
+<div class="mobile-logo-container mobile-only">
+  <button mat-icon-button class="back-button" routerLink="/">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <img src="/assets/logo_p6.png" alt="logo" class="logo" />
+</div>
+
+<div class="sign-in-page">
+
+  <button mat-icon-button class="back-button desktop-only" routerLink="/">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h2>Se connecter</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>E-mail ou nom d’utilisateur</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+      />
+    </mat-form-field>
+
+    <div *ngIf="onError" class="error-message">
+      Une erreur est survenue lors de la connexion. Veuillez vérifier vos identifiants.
+    </div>
+
+    <button mat-raised-button type="submit" class="submit-btn">
+      Se connecter
+    </button>
+  </form>
+</div>

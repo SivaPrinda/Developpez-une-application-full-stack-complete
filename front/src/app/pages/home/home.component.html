@@ -1,5 +1,11 @@
 <div class="center">
   <img src="/assets/logo_p6.png" alt="logo" />
-  <h1>Welcome to MDD</h1>
-  <button mat-raised-button color="primary" (click)="start()">Commencer</button>
+  <div class="button-group">
+    <button routerLink="/signin" mat-raised-button color="basic">
+      Se connecter
+    </button>
+    <button routerLink="/signup" mat-raised-button color="basic">
+      S'inscrire
+    </button>
+  </div>
 </div>

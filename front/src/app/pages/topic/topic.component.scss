@@ -1,0 +1,43 @@
+.themes-container {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur les grands écrans */
+  gap: 1.5rem; /* Espacement entre les posts */
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* 1 colonne sur les petits écrans */
+  }
+}
+
+.theme-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #444;
+    flex-grow: 1;
+  }
+
+  button {
+    margin-top: 1rem;
+    align-self: center;
+    background-color: #a084dc;
+    color: white;
+
+    &.mat-accent {
+      background-color: #999999;
+      color: white;
+    }
+  }
+}

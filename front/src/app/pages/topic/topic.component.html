@@ -1,0 +1,16 @@
+
+<div class="themes-container">
+  <div class="theme-card" *ngFor="let topic of topics">
+    <h3>{{ topic.name }}</h3>
+    <p>{{ topic.description }}</p>
+
+    <button
+      mat-raised-button
+      [color]="followedTopics.includes(topic.id) ? 'accent' : 'primary'"
+      [disabled]="followedTopics.includes(topic.id)"
+      (click)="toggleSubscription(topic)"
+    >
+      {{ followedTopics.includes(topic.id) ? "Déjà abonné" : "S'abonner" }}
+    </button>
+  </div>
+</div>

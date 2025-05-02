@@ -1,0 +1,31 @@
+.create-post-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  text-align: center;
+
+  h2 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    margin-bottom: -1rem;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+
+  .submit-btn {
+    color: white;
+  }
+  
+}

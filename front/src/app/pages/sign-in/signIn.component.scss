@@ -1,0 +1,96 @@
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none; /* Masque la navbar sur les petits écrans */
+  }
+
+  .mobile-only {
+    display: flex; /* Affiche le conteneur pour le logo */
+    flex-direction: column; /* Empile les éléments verticalement */
+    align-items: center; /* Centre horizontalement */
+    position: relative;
+    margin-top: 1rem;
+
+    .back-button {
+      align-self: flex-start; /* Aligne le bouton "arrow" à gauche */
+      margin-bottom: 1rem; /* Ajoute un espace entre le bouton et le logo */
+    }
+
+    .logo {
+      max-width: 80%;
+      height: auto;
+    }
+  }
+  .sign-in-page h2 {
+    padding: 0 !important; /* Supprime le padding */
+    margin-top: 0 !important; /* Supprime la marge */
+    margin-bottom: 25px !important; /* Ajuste la marge */
+  }
+}
+
+.sign-in-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+
+  h2 {
+    padding: 120px 16px 0;
+    font-size: 28px;
+    margin: 24px 0 32px;
+    font-weight: 500;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    max-width: 400px;
+    flex-direction: column;
+
+    .form-field {
+      width: 100%;
+    }
+  }
+
+  .submit-btn {
+    background-color: #7e61c9;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 8px;
+    height: 48px;
+    text-transform: none;
+    width: fit-content;
+    padding: 0 32px;
+    align-self: center;
+  }
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 1;
+  }
+}
+
+mat-icon {
+  height: auto;
+  width: auto;
+  font-size: 45px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}

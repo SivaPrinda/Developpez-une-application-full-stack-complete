@@ -1,0 +1,109 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+
+  .logo {
+    height: 50px;
+  }
+
+  .navbar-left {
+    margin-top: 1rem;
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+
+    a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #000000;
+    }
+    .active-link {
+      color: #7e61c9 !important; /* Couleur violette pour le lien actif */
+      font-weight: bold; /* Met le lien actif en gras */
+    }
+    .logout {
+      color: #d32f2f; /* Rouge pour le bouton */
+      font-weight: bold;
+      cursor: pointer; /* Change le curseur en mode pointeur */
+      text-decoration: none;
+    }
+  }
+}
+.profile-button {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  color: #d9d9d9;
+  font-size: 35px;
+}
+.sidenav-container {
+  padding-top: 64px;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.sidenav-content {
+  min-height: calc(100vh - 64px);
+}
+
+.sidenav {
+  width: 250px;
+  padding-top: 64px !important;
+  background-color: #ffffff;
+  padding: 1rem;
+  z-index: 1000;
+  position: fixed;
+
+  a {
+    display: block;
+    margin: 1rem 0;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: right;
+    color: #000000;
+  }
+
+  button[mat-icon-button] {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    color: #d9d9d9;
+  }
+
+  .logout {
+    color: #d32f2f; /* Rouge pour le bouton */
+    font-weight: bold;
+    cursor: pointer; /* Change le curseur en mode pointeur */
+    text-decoration: none;
+  }
+}
+
+.menu-button {
+  display: none; /* Masque le bouton menu burger par défaut */
+}
+
+/* Media queries pour les écrans de téléphone */
+@media (max-width: 768px) {
+  .menu-button {
+    display: inline-flex; /* Affiche le bouton menu burger sur mobile */
+    margin-left: auto;
+  }
+
+  .desktop-only {
+    display: none !important; /* Masque les liens sur les écrans de téléphone */
+  }
+}
