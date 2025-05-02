@@ -10,6 +10,9 @@ import com.openclassrooms.mddapi.services.ICommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService implements ICommentService {
@@ -19,23 +22,19 @@ public class CommentService implements ICommentService {
     private final PostService postService;
 
     @Override
-    public String createComment(CreateCommentDTO createCommentDto) {
-        // Create a new Message entity.
+    public Comment createComment(String content, Long postId) {
+        User user = userService.getConnectedUser();
+        Post post = postService.getPostById(postId);
         Comment comment = new Comment();
+        comment.setContent(content);
+        comment.setUser(user);
+        comment.setPost(post);
+        comment.setCreatedAt(LocalDateTime.now());
+        return commentRepository.save(comment);
+    }
 
-        // Retrieve the User associated with the message using the userId from the DTO.
-        User user = userService.getUser(createCommentDto.userId());
-        comment.setUser(user); // Set the user for the message.
-
-        // Retrieve the Rental associated with the message using the rentalId from the DTO.
-        Post rental = postService.getPostById(createCommentDto.postId());
-        comment.setPost(rental); // Set the rental for the message.
-
-        // Set the message content from the DTO.
-        comment.setComment(createCommentDto.comment());
-
-        // Save the message to the database and return its string representation.
-        comment = commentRepository.save(comment);
-        return comment.toString();
+    @Override
+    public List<Comment> getCommentByPostId(Long postId) {
+        return commentRepository.findByPostId(postId);
     }
 }

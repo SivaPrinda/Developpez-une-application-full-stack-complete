@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
 import com.openclassrooms.mddapi.dto.response.TokenDTO;
 import com.openclassrooms.mddapi.dto.response.UserDTO;
+import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,9 @@ public class AuthController {
 
     @Autowired
     private IUserService iUserService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * Registers a new user.
@@ -52,35 +56,6 @@ public class AuthController {
      */
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getConnectedUser() {
-        return ResponseEntity.ok(mapToUserDTO(iUserService.getConnectedUser()));
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            iUserService.logout(token);
-            return ResponseEntity.ok("Logout successful");
-        } else {
-            return ResponseEntity.badRequest().body("Missing Token");
-        }
-    }
-
-    /**
-     * Maps a User object to a UserDTO object.
-     * This is used to expose user data in a structured and secure format.
-     *
-     * @param user the User object to be mapped.
-     * @return a UserDTO object containing user information.
-     */
-    private UserDTO mapToUserDTO(User user) {
-        return new UserDTO(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+        return ResponseEntity.ok(userMapper.toDto(iUserService.getConnectedUser()));
     }
 }

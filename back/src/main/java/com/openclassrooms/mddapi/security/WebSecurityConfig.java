@@ -21,6 +21,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -30,6 +33,19 @@ public class WebSecurityConfig {
 
     @Autowired
     private TokenBlacklist tokenBlacklist;
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:4200"); // ou configuration.setAllowedOriginPatterns(List.of("http://localhost:*"));
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     /**
      * Configures the JwtDecoder bean for decoding and validating JWT tokens.
@@ -75,6 +91,7 @@ public class WebSecurityConfig {
                     }
                     chain.doFilter(request, response);
                 }, UsernamePasswordAuthenticationFilter.class)
+                .cors(Customizer.withDefaults())
                 .build();
     }
 
