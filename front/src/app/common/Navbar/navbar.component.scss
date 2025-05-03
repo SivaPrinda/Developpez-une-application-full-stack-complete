@@ -1,3 +1,4 @@
+/* Top navigation bar styling */
 .navbar {
   display: flex;
   align-items: center;
@@ -31,17 +32,19 @@
       color: #000000;
     }
     .active-link {
-      color: #7e61c9 !important; /* Couleur violette pour le lien actif */
-      font-weight: bold; /* Met le lien actif en gras */
+      color: #7e61c9 !important; 
+      font-weight: bold; 
     }
     .logout {
-      color: #d32f2f; /* Rouge pour le bouton */
+      color: #d32f2f; 
       font-weight: bold;
-      cursor: pointer; /* Change le curseur en mode pointeur */
+      cursor: pointer; 
       text-decoration: none;
     }
   }
 }
+
+/* Profile icon styling inside the navbar */
 .profile-button {
   display: flex;
   align-items: center;
@@ -50,16 +53,20 @@
   color: #d9d9d9;
   font-size: 35px;
 }
+
+/* Container for the side navigation and main content */
 .sidenav-container {
   padding-top: 64px;
   background-color: #ffffff;
   position: relative;
 }
 
+/* Ensures main content takes the full height minus the navbar */
 .sidenav-content {
   min-height: calc(100vh - 64px);
 }
 
+/* Side navigation menu styling */
 .sidenav {
   width: 250px;
   padding-top: 64px !important;
@@ -85,25 +92,26 @@
   }
 
   .logout {
-    color: #d32f2f; /* Rouge pour le bouton */
+    color: #d32f2f; 
     font-weight: bold;
-    cursor: pointer; /* Change le curseur en mode pointeur */
+    cursor: pointer; 
     text-decoration: none;
   }
 }
 
+/* Show burger menu button on mobile */
 .menu-button {
-  display: none; /* Masque le bouton menu burger par défaut */
+  display: none; 
 }
-
-/* Media queries pour les écrans de téléphone */
+/* Responsive behavior for screens smaller than 768px */
 @media (max-width: 768px) {
   .menu-button {
-    display: inline-flex; /* Affiche le bouton menu burger sur mobile */
+    display: inline-flex; 
     margin-left: auto;
   }
 
+  /* Hide desktop-only elements on mobile */
   .desktop-only {
-    display: none !important; /* Masque les liens sur les écrans de téléphone */
+    display: none !important; 
   }
 }

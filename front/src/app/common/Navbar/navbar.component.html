@@ -1,5 +1,5 @@
 <mat-toolbar *ngIf="!isHomepage" color="basic" class="navbar">
-  <!-- Bouton menu burger visible uniquement sur mobile -->
+  <!-- Burger menu button visible only on mobile -->
 
   <div class="navbar-left">
     <img src="/assets/logo_p6.png" alt="logo" class="logo" />
@@ -11,6 +11,7 @@
 
   <ng-container *ngIf="isLoggedIn">
     <!-- Liens visibles uniquement sur les écrans larges -->
+    <!-- Links visible only on large screens -->
     <div class="navbar-right desktop-only">
       <a class="logout" (click)="logout()">Se déconnecter</a>
       <a routerLink="/articles" routerLinkActive="active-link">Articles</a>
@@ -26,7 +27,7 @@
   </ng-container>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container" hasBackdrop>
-  <!-- Menu latéral -->
+  <!-- Side menu -->
   <mat-sidenav #sidenav mode="over" position="end" class="sidenav">
     <a class="logout" (click)="logout()">Se déconnecter</a>
     <a routerLink="/articles" (click)="sidenav.close()">Articles</a>
@@ -36,7 +37,7 @@
     </button>
   </mat-sidenav>
 
-  <!-- Contenu principal -->
+  <!-- Main content -->
   <mat-sidenav-content class="sidenav-content">
     <ng-content></ng-content>
   </mat-sidenav-content>

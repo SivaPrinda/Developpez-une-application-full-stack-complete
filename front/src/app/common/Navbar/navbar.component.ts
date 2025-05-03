@@ -33,24 +33,27 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    // Simulate login for now. Replace with real auth check later.
+    // Subscribe to the authentication state observable to update login status
     this.subscription = this.authService.isLoggedIn$.subscribe(
       (loggedIn) => (this.isLoggedIn = loggedIn)
     );
 
     this.router.events.subscribe(() => {
-      this.isHomepage = this.router.url === '/'; // Vérifie si la route est "/"
+      // Check if the current route is the homepage
+      this.isHomepage = this.router.url === '/'; 
     });
   }
 
   public logout(): void {
-    this.authService.clearToken(); // Supprime le token
-    this.authService.setLoggedIn(false); // Met à jour l'état local
+    // Remove the authentication token
+    this.authService.clearToken(); 
+    // Update the local login state
+    this.authService.setLoggedIn(false); 
     this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {
-    // Désabonnement pour éviter les fuites de mémoire
+    // Unsubscribe to prevent memory leaks
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
