@@ -22,9 +22,9 @@
       routerLink="/article/{{ post.id }}"
     >
       <mat-card-title>{{ post.title }}</mat-card-title>
-      <mat-card-subtitle>
-        {{ post.createdAt | date : "dd/MM/yyyy HH:mm" }} &nbsp; | &nbsp;
-        {{ post.author }} &nbsp;
+      <mat-card-subtitle class="post-subtitle">
+        <span class="date">{{ post.createdAt | date : "dd/MM/yyyy HH:mm" }}</span>
+        <span class="author">{{ post.author }}</span>
       </mat-card-subtitle>
       <mat-card-content>
         <p>

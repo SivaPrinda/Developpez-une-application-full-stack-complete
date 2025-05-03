@@ -9,6 +9,13 @@
   align-items: center;
   margin-bottom: 1.5rem;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
   .sort {
     display: flex;
     align-items: center;
@@ -35,6 +42,18 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .post-subtitle {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+
+  .date,
+  .author {
+    white-space: nowrap;
+  }
+}
 
   mat-card-title {
     font-weight: bold;
