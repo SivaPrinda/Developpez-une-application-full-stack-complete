@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+/**
+ * REST controller for handling user-related operations.
+ * Provides an endpoint to update user profile information.
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -22,6 +26,12 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * Updates the authenticated user's profile.
+     *
+     * @param user the user entity containing updated profile information.
+     * @return the updated user information as a UserDTO wrapped in a ResponseEntity.
+     */
     @PutMapping("/update")
     public ResponseEntity<UserDTO> updateUser(@RequestBody User user) {
         User updatedUser = iUserService.updateUser(user);

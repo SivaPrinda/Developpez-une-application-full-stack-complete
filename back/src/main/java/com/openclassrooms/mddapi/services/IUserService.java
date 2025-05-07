@@ -45,5 +45,11 @@ public interface IUserService extends UserDetailsService {
      */
     String login(LoginUserDTO login);
 
+    /**
+     * Updates the profile information of the currently authenticated user.
+     *
+     * @param user The updated user entity containing the new profile data.
+     * @return The updated User entity.
+     */
     User updateUser(User user);
 }

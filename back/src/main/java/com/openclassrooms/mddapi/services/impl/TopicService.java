@@ -16,6 +16,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+/**
+ * Service implementation for managing topics.
+ * Provides operations such as retrieving all topics, subscribing/unsubscribing to a topic,
+ * and retrieving the topics followed by the currently authenticated user.
+ */
 public class TopicService implements ITopicService {
 
     private final TopicRepository topicRepository;
@@ -25,10 +30,12 @@ public class TopicService implements ITopicService {
     private final UserRepository userRepository;
 
 
+
     @Override
     public List<Topic> getAllTopics() {
         return topicRepository.findAll();
     }
+
 
     @Override
     public Topic getById( Long id){

@@ -13,11 +13,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+/**
+ * Service implementation for managing posts.
+ * Provides methods to retrieve all posts, retrieve a specific post by ID, and create new posts.
+ */
 public class PostService implements IPostService {
 
     private final PostRepository postRepository;
     private final UserService userService;
     private final TopicService topicService;
+
 
     @Override
     public List<Post> getPosts() {
@@ -26,7 +31,7 @@ public class PostService implements IPostService {
 
     @Override
     public Post getPostById(Long postId) {
-    return postRepository.findById(postId).orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND,"Post not found"));
+        return postRepository.findById(postId).orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND,"Post not found"));
     }
 
     @Override

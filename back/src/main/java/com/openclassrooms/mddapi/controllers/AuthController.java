@@ -1,14 +1,11 @@
 package com.openclassrooms.mddapi.controllers;
 
-
 import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
 import com.openclassrooms.mddapi.dto.response.TokenDTO;
 import com.openclassrooms.mddapi.dto.response.UserDTO;
 import com.openclassrooms.mddapi.mappers.UserMapper;
-import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.IUserService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +22,11 @@ public class AuthController {
     private UserMapper userMapper;
 
     /**
-     * Registers a new user.
+     * Handles user registration.
      * Endpoint: POST /api/auth/register
      *
-     * @param registerUser the user details sent in the request body.
-     * @return a ResponseEntity containing a TokenDTO (the authentication token).
+     * @param registerUser DTO containing user registration details.
+     * @return a ResponseEntity containing a TokenDTO with the JWT token.
      */
     @PostMapping("/register")
     public ResponseEntity<TokenDTO> signIn(@Valid @RequestBody RegisterUserDTO registerUser) {
@@ -37,11 +34,11 @@ public class AuthController {
     }
 
     /**
-     * Logs in an existing user.
+     * Handles user login.
      * Endpoint: POST /api/auth/login
      *
-     * @param loginUser the login credentials sent in the request body.
-     * @return a ResponseEntity containing a TokenDTO (the authentication token).
+     * @param loginUser DTO containing user login credentials.
+     * @return a ResponseEntity containing a TokenDTO with the JWT token.
      */
     @PostMapping("/login")
     public ResponseEntity<TokenDTO> signUp(@RequestBody LoginUserDTO loginUser) {
@@ -49,10 +46,10 @@ public class AuthController {
     }
 
     /**
-     * Retrieves the currently logged-in user's information.
+     * Retrieves the currently authenticated user's information.
      * Endpoint: GET /api/auth/me
      *
-     * @return a ResponseEntity containing a UserDTO (user details).
+     * @return a ResponseEntity containing the UserDTO of the authenticated user.
      */
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getConnectedUser() {

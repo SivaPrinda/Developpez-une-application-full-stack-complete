@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.dto.request.CreateCommentDTO;
 import com.openclassrooms.mddapi.models.Comment;
 import com.openclassrooms.mddapi.models.Post;
 import com.openclassrooms.mddapi.models.User;
@@ -13,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Service implementation for managing comments.
+ * Handles creation of comments and retrieval of comments by post ID.
+ */
 @Service
 @RequiredArgsConstructor
 public class CommentService implements ICommentService {

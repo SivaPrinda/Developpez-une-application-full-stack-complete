@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * REST controller for handling topic-related operations.
+ * Provides endpoints to retrieve all topics, follow/unfollow topics, and get followed topics for the authenticated user.
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/topic")
@@ -22,17 +26,21 @@ public class TopicController {
     private final TopicMapper topicMapper;
     private final UserMapper userMapper;
 
+    /**
+     * Retrieves the list of all available topics.
+     * @return a list of TopicDTO objects.
+     */
     @GetMapping
     public List<TopicDTO> getAllTopics() {
         return iTopicService.getAllTopics().stream().map(topicMapper::toDto).toList();
     }
 
     /**
-     * Follows a topic for the connected user.
-     * Endpoint: PUT /api/user/subscribe/{topicId}
+     * Subscribes the currently authenticated user to a specific topic.
+     * Endpoint: PUT /api/topic/subscribe/{topicId}
      *
-     * @param topicId the ID of the topic to follow.
-     * @return a ResponseEntity with the updated UserDTO.
+     * @param topicId the ID of the topic to subscribe to.
+     * @return a ResponseEntity containing the updated UserDTO.
      */
     @PutMapping("/subscribe/{topicId}")
     public ResponseEntity<UserDTO> followTopic(@PathVariable Long topicId) {
@@ -41,11 +49,11 @@ public class TopicController {
     }
 
     /**
-     * Unfollows a topic for the connected user.
-     * Endpoint: DELETE /api/user/unsubscribe/{topicId}
+     * Unsubscribes the currently authenticated user from a specific topic.
+     * Endpoint: DELETE /api/topic/unsubscribe/{topicId}
      *
-     * @param topicId the ID of the topic to unfollow.
-     * @return a ResponseEntity with the updated UserDTO.
+     * @param topicId the ID of the topic to unsubscribe from.
+     * @return a ResponseEntity containing the updated UserDTO.
      */
     @DeleteMapping("/unsubscribe/{topicId}")
     public ResponseEntity<UserDTO> unfollowTopic(@PathVariable Long topicId) {
@@ -53,6 +61,10 @@ public class TopicController {
         return ResponseEntity.ok(userMapper.toDto(user));
     }
 
+    /**
+     * Retrieves the list of topics followed by the currently authenticated user.
+     * @return a ResponseEntity containing a list of followed TopicDTO objects.
+     */
     @GetMapping("/subscriptions")
     public ResponseEntity<List<TopicDTO>> getFollowedTopics() {
         List<TopicDTO> followedTopics = iTopicService.getFollowedTopics().stream()
