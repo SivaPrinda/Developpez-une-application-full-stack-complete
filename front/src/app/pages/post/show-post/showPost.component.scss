@@ -10,12 +10,13 @@
   .post-header {
     display: flex;
     align-items: center;
-    gap: 1rem; /* espace entre l’icône et le titre */
+    gap: 1rem; 
     margin-bottom: 1rem;
 
-    h2 {
+    h1{
       margin-bottom: 0;
     }
+
   }
 
   .post-main {

@@ -1,3 +1,5 @@
+// This component provides a form for users to create a new post.
+// It initializes form controls, fetches available topics, and submits the post data.
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,10 +14,14 @@ import { PostRequest } from 'src/app/core/models/request/PostRequest';
   styleUrls: ['./createPost.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
+  // Reactive form group for post creation inputs
   form!: FormGroup;
+  // List of available topics fetched from the API
   topics: Topic[] = [];
+  // Flag to display error message if API calls fail
   onError = false;
 
+  // Inject services for form building, topic fetching, post creation, and navigation
   constructor(
     private fb: FormBuilder,
     private topicService: TopicService,
@@ -23,39 +29,47 @@ export class CreatePostComponent implements OnInit {
     private router: Router
   ) {}
 
+  // Initialize the form and fetch topics when the component is loaded
   ngOnInit(): void {
+    // Define form fields and validation rules
     this.form = this.fb.group({
-      title: ['', [Validators.required]], // Champ pour le titre
-      content: ['', [Validators.required]], // Champ pour le contenu
-      topicId: ['', [Validators.required]], // Champ pour le thème sélectionné
+      title: ['', [Validators.required]], 
+      content: ['', [Validators.required]], 
+      topicId: ['', [Validators.required]], 
     });
 
-    this.fetchTopics(); // Récupère les topics au chargement
+    this.fetchTopics(); 
   }
 
+  // Fetch available topics from the TopicService
   private fetchTopics(): void {
     this.topicService.getTopics().subscribe({
       next: (data: Topic[]) => {
-        this.topics = data; // Stocke les topics récupérés
+        // Store the fetched topics in the component
+        this.topics = data; 
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des topics:', err);
+        // Show error state if the request fails
         this.onError = true;
       },
     });
   }
 
+  // Handle form submission and send the post data to the server
   public submit(): void {
     if (this.form.invalid) return;
 
-    const postRequest: PostRequest = this.form.value; // Récupère les données du formulaire
+    const postRequest: PostRequest = this.form.value; 
     this.postService.createPost(postRequest).subscribe({
       next: () => {
-        this.router.navigate(['/articles']); // Redirige vers la liste des posts après succès
+        // Redirect to article list on successful creation
+        this.router.navigate(['/articles']); 
       },
       error: (error) => {
         console.error('Erreur lors de la création du post:', error);
-        this.onError = true; // Affiche un message d'erreur si nécessaire
+        // Show error state if post creation fails
+        this.onError = true; 
       },
     });
   }

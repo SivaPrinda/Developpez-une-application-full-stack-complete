@@ -1,3 +1,6 @@
+// This component displays the details of a single post and allows users to view and add comments.
+// It initializes the post data, loads comments, and manages the comment form logic.
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -11,73 +14,84 @@ import { PostComment } from 'src/app/core/models/PostComment';
   styleUrls: ['./showPost.component.scss'],
 })
 export class ShowPostComponent implements OnInit {
-  post!: Post; // Détails du post
-  comments: PostComment[] = []; // Liste des commentaires
-  commentForm!: FormGroup; // Formulaire pour ajouter un commentaire
+  // Stores the current post data
+  post!: Post; 
+  // List of comments related to the post
+  comments: PostComment[] = []; 
+  // Reactive form group for comment input
+  commentForm!: FormGroup; 
+  // Flag to track if an error occurred during data retrieval or submission
   onError = false;
 
+  // Inject required services: ActivatedRoute for route params, PostService for API calls, FormBuilder for reactive forms
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
     private fb: FormBuilder
   ) {}
 
+  // Initialize post and comment data when the component loads, and configure the comment form
   ngOnInit(): void {
-    const postId = Number(this.route.snapshot.paramMap.get('id')); // Récupère l'ID du post depuis l'URL
+    // Get post ID from the route parameters
+    const postId = Number(this.route.snapshot.paramMap.get('id')); 
     if (postId) {
-      this.fetchPost(postId); // Récupère les détails du post
-      this.fetchComments(postId); // Récupère les commentaires associés
+      this.fetchPost(postId); 
+      this.fetchComments(postId); 
     }
 
-    // Initialisation du formulaire pour les commentaires
+    // Set up the comment form with validation
     this.commentForm = this.fb.group({
       content: ['', [Validators.required]],
     });
   }
 
-  // Récupère les détails du post
+  // Fetch the post data from the server using the post ID
   private fetchPost(postId: number): void {
     this.postService.getPostById(postId).subscribe({
       next: (data: Post) => {
+        // Assign the retrieved post data
         this.post = data;
       },
       error: (err) => {
-        console.error('Erreur lors de la récupération du post :', err);
+        // Show error state if the post couldn't be loaded
         this.onError = true;
       },
     });
   }
 
-  // Récupère les commentaires associés au post
+  // Fetch the list of comments for the specified post
   private fetchComments(postId: number): void {
     this.postService.getCommentsByPostId(postId).subscribe({
       next: (data: PostComment[]) => {
+        // Store the retrieved comments in the component
         this.comments = data;
       },
       error: (err) => {
-        console.error('Erreur lors de la récupération des commentaires :', err);
+        // Show error state if comments couldn't be loaded
         this.onError = true;
       },
     });
   }
 
-  // Ajoute un commentaire
+  // Submit a new comment for the current post using the comment form
   public addComment(postId: number): void {
     if (this.commentForm.invalid) return;
 
+    // Retrieve the comment content from the form
     const content = this.commentForm.get('content')?.value;
 
     this.postService.addComment({ content }, postId).subscribe({
       next: (newComment: PostComment) => {
-        this.comments.push(newComment); // Ajoute le nouveau commentaire à la liste
-        this.commentForm.reset(); // Réinitialise le formulaire
+        // Add the new comment to the local comment list
+        this.comments.push(newComment); 
+        // Reset the form after successful submission
+        this.commentForm.reset();
 
-        this.commentForm.get('content')?.markAsPristine();
-        this.commentForm.get('content')?.markAsUntouched();
+        // Reset individual form state (errors)
         this.commentForm.get('content')?.setErrors(null);
       },
       error: (err) => {
-        console.error("Erreur lors de l'ajout du commentaire :", err);
+        // Show error state if the comment submission fails
         this.onError = true;
       },
     });

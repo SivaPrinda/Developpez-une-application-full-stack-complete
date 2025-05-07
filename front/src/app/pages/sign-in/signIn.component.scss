@@ -1,37 +1,49 @@
+/*
+ * Styles for the sign-in component.
+ * Handles layout, responsive visibility, and form styling for desktop and mobile views.
+ */
+
+// Show element only on desktop
 .desktop-only {
   display: block;
 }
 
+// Hide element on desktop, show on mobile
 .mobile-only {
   display: none;
 }
 
 @media (max-width: 768px) {
+  // Hide desktop-only elements on small screens
   .desktop-only {
-    display: none; /* Masque la navbar sur les petits écrans */
+    display: none; 
   }
 
+  // Show and style mobile elements
   .mobile-only {
-    display: flex; /* Affiche le conteneur pour le logo */
-    flex-direction: column; /* Empile les éléments verticalement */
-    align-items: center; /* Centre horizontalement */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
     position: relative;
     margin-top: 1rem;
 
+    // Style back button alignment and spacing for mobile
     .back-button {
-      align-self: flex-start; /* Aligne le bouton "arrow" à gauche */
-      margin-bottom: 1rem; /* Ajoute un espace entre le bouton et le logo */
+      align-self: flex-start; 
+      margin-bottom: 1rem; 
     }
 
+    // Adjust logo size for mobile
     .logo {
       max-width: 80%;
       height: auto;
     }
   }
+  // Heading style for sign-in title
   .sign-in-page h2 {
-    padding: 0 !important; /* Supprime le padding */
-    margin-top: 0 !important; /* Supprime la marge */
-    margin-bottom: 25px !important; /* Ajuste la marge */
+    padding: 0 !important; 
+    margin-top: 0 !important; 
+    margin-bottom: 25px !important;
   }
 }
 
@@ -45,6 +57,7 @@
   justify-content: center;
   gap: 1.5rem;
 
+  // Heading style for sign-in title
   h2 {
     padding: 120px 16px 0;
     font-size: 28px;
@@ -52,17 +65,20 @@
     font-weight: 500;
   }
 
+  // Style for sign-in form layout
   form {
     width: 100%;
     display: flex;
     max-width: 400px;
     flex-direction: column;
 
+    // Ensure form fields take full width
     .form-field {
       width: 100%;
     }
   }
 
+  // Style for the submit button
   .submit-btn {
     background-color: #7e61c9;
     color: white;
@@ -75,6 +91,7 @@
     padding: 0 32px;
     align-self: center;
   }
+  // Back button positioning for larger screens
   .back-button {
     position: absolute;
     left: 1rem;
@@ -83,12 +100,14 @@
   }
 }
 
+// Override mat-icon default sizing
 mat-icon {
   height: auto;
   width: auto;
   font-size: 45px;
 }
 
+// Style for error message display
 .error-message {
   color: red;
   font-size: 0.9rem;

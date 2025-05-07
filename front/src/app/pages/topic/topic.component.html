@@ -1,9 +1,16 @@
-
+<!--
+  Topic list page template.
+  Displays each topic with name and description, and provides a button to subscribe or show subscription status.
+-->
+<!-- Container holding all topic cards -->
 <div class="themes-container">
   <div class="theme-card" *ngFor="let topic of topics">
+    <!-- Topic name -->
     <h3>{{ topic.name }}</h3>
+    <!-- Topic description -->
     <p>{{ topic.description }}</p>
 
+    <!-- Subscription button: changes appearance and label based on user's subscription status -->
     <button
       mat-raised-button
       [color]="followedTopics.includes(topic.id) ? 'accent' : 'primary'"

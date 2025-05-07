@@ -1,12 +1,21 @@
-
+<!--
+  This template allows users to create a new article (post).
+  It includes a form to select a topic, enter a title, and write content.
+  Upon submission, the form triggers the submit() method in the component.
+-->
+<!-- Container for the create post form -->
 <div class="create-post-container">
+  <!-- Button to go back to the list of articles -->
   <button mat-icon-button class="back-button" routerLink="/articles">
     <mat-icon>arrow_back</mat-icon>
   </button>
 
+  <!-- Heading for the create post form -->
   <h2>Créer un nouvel article</h2>
 
+  <!-- Reactive form bound to the component's form group -->
   <form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- Dropdown to select a topic -->
     <mat-form-field appearance="outline" class="form-field full-width">
       <mat-label>Sélectionner un thème</mat-label>
       <mat-select formControlName="topicId">
@@ -16,16 +25,19 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- Input field for the post title -->
     <mat-form-field appearance="outline" class="form-field full-width">
       <mat-label>Titre de l'article</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
 
+    <!-- Textarea for writing the post content -->
     <mat-form-field appearance="outline" class="form-field full-width">
       <mat-label>Contenu de l’article</mat-label>
       <textarea matInput formControlName="content" rows="5"></textarea>
     </mat-form-field>
 
+    <!-- Submit button to create the post -->
     <button mat-raised-button color="primary" type="submit" class="submit-btn">
       Créer
     </button>

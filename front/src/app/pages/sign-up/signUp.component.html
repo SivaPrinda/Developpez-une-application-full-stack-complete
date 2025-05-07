@@ -1,4 +1,10 @@
+<!--
+  Sign-up page template.
+  Includes a reactive form for creating a new user account with name, email, and password inputs.
+  Also includes navigation buttons for mobile and desktop views.
+-->
 
+<!-- Logo and back button for mobile view -->
 <div class="mobile-logo-container mobile-only">
   <button mat-icon-button class="back-button" routerLink="/">
     <mat-icon>arrow_back</mat-icon>
@@ -6,24 +12,31 @@
   <img src="/assets/logo_p6.png" alt="logo" class="logo" />
 </div>
 
+<!-- Main container for the sign-up form -->
 <div class="sign-up-page">
+  <!-- Back button for desktop view -->
   <button mat-icon-button class="back-button desktop-only" routerLink="/">
     <mat-icon>arrow_back</mat-icon>
   </button>
 
+  <!-- Heading for the sign-up form -->
   <h2>Inscription</h2>
 
+  <!-- Reactive form bound to the component class -->
   <form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- Input field for username -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Nom d’utilisateur</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
+    <!-- Input field for email address -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Adresse e-mail</mat-label>
       <input matInput formControlName="email" />
     </mat-form-field>
 
+    <!-- Input field for password with visibility toggle -->
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Mot de passe</mat-label>
       <input
@@ -33,6 +46,7 @@
       />
     </mat-form-field>
 
+    <!-- Submit button to create a new account -->
     <button mat-raised-button type="submit" class="submit-btn">
       S'inscrire
     </button>
