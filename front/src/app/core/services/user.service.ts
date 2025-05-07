@@ -1,29 +1,29 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+// UserService handles operations related to user profile management.
+// It includes methods for updating the user's profile information via HTTP requests.
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Topic } from '../models/response/Topic';
 import { User } from '../models/User';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  // Base URL for user-related API endpoints
   private pathService = `${environment.baseUrl}/user`;
 
-  constructor(private httpClient: HttpClient) {}
+  // Inject HttpClient for performing HTTP requests
+  constructor(
+    private httpClient: HttpClient,
+    private tokenService: TokenService
+  ) {}
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken'); // Récupère le token depuis le localStorage
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`, // Ajoute le token dans l'en-tête Authorization
-    });
-  }
-
-  // Met à jour le profil utilisateur
+  // Send a PUT request to update the user's profile with the provided user data
   public updateUserProfile(user: User): Observable<User> {
     return this.httpClient.put<any>(`${this.pathService}/update`, user, {
-      headers: this.getAuthHeaders(),
+      headers: this.tokenService.getAuthHeaders(),
     });
   }
 }

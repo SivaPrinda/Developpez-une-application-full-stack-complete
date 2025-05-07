@@ -67,10 +67,14 @@ export class ShowPostComponent implements OnInit {
 
     const content = this.commentForm.get('content')?.value;
 
-    this.postService.addComment({content}, postId).subscribe({
+    this.postService.addComment({ content }, postId).subscribe({
       next: (newComment: PostComment) => {
         this.comments.push(newComment); // Ajoute le nouveau commentaire à la liste
         this.commentForm.reset(); // Réinitialise le formulaire
+
+        this.commentForm.get('content')?.markAsPristine();
+        this.commentForm.get('content')?.markAsUntouched();
+        this.commentForm.get('content')?.setErrors(null);
       },
       error: (err) => {
         console.error("Erreur lors de l'ajout du commentaire :", err);
