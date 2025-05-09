@@ -15,8 +15,8 @@ public record RegisterUserDTO(
 
         @Schema(description = "User password")
         @Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message = "Le mot de passe doit contenir au moins 8 caractères, dont une minuscule, une majuscule, un chiffre et un caractère spécial."
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+            message = "The password must contain at least 8 characters, including one lowercase letter, one uppercase letter, one digit, and one special character."
         )
         String password
 ){}

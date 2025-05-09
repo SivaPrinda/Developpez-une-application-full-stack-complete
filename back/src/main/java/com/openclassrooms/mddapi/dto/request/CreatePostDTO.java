@@ -2,7 +2,7 @@ package com.openclassrooms.mddapi.dto.request;
 
 public record CreatePostDTO (
 
-    Long topiId,
+    Long topicId,
 
     String title,
 

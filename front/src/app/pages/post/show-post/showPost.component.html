@@ -1,0 +1,62 @@
+<!--
+  Template for displaying a single post with its details and associated comments.
+  Includes logic for displaying post content, listing comments, and submitting a new comment.
+-->
+
+<!-- Main container shown only when the post is loaded -->
+<div *ngIf="post" class="post-container">
+  <div class="post-header">
+    <!-- Button to navigate back to the articles list -->
+    <button mat-icon-button class="back-button" routerLink="/articles">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <!-- Display the title of the post -->
+    <h1>{{ post.title }}</h1>
+  </div>
+  <div class="post-main">
+    <!-- Display post metadata: date, author, topic -->
+    <div class="post-details">
+      <span>{{ post.createdAt | date : "dd/MM/yyyy HH:mm" }}</span>
+      <span>{{ post.author }}</span>
+      <span>{{ post.topic }}</span>
+    </div>
+
+    <!-- Display the main content of the post -->
+    <p class="post-content">
+      {{ post.content }}
+    </p>
+
+    <hr />
+
+    <!-- Section title for comments -->
+    <h3>Commentaires</h3>
+    <div class="comments-container">
+      <!-- Loop through and display each comment -->
+      <div class="comment" *ngFor="let comment of comments">
+        <!-- Show the comment author's name -->
+        <span class="comment-author">{{ comment.authorName }}</span>
+        <p class="comment-content">{{ comment.content }}</p>
+      </div>
+    </div>
+
+    <!-- Form for submitting a new comment -->
+    <form
+      [formGroup]="commentForm"
+      (ngSubmit)="addComment(post.id)"
+      class="comment-form"
+    >
+      <div class="comment-input-container">
+        <!-- Text area for entering a new comment -->
+        <mat-form-field appearance="outline" class="comment-field">
+          <mat-label>Écrivez ici votre commentaire</mat-label>
+          <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+        <!-- Button to submit the comment -->
+        <button mat-icon-button color="primary" type="submit" class="send-btn">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

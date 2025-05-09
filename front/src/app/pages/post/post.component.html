@@ -1,0 +1,48 @@
+<!--
+  Template for displaying a list of posts with sorting functionality and a link to create a new article.
+  Each post is shown as a card with title, date, author, and content preview.
+-->
+<!-- Main container for the post list page -->
+<div class="container">
+  <!-- Header section with create article button and sort control -->
+  <div class="header">
+    <!-- Button to navigate to the post creation page -->
+    <button mat-raised-button color="primary" routerLink="/create-article">
+      Créer un article
+    </button>
+
+    <!-- Sort control for posts based on creation date -->
+    <div class="sort">
+      <span>Trier par</span>
+      <button mat-icon-button (click)="sortPostsByDate()">
+        <mat-icon>{{
+          isAscending ? "arrow_upward" : "arrow_downward"
+        }}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- List of post cards -->
+  <div class="card-list">
+    <!-- Display each post as a material card with a link to its detail view -->
+    <mat-card
+      class="post-card"
+      *ngFor="let post of posts"
+      routerLink="/article/{{ post.id }}"
+    >
+      <!-- Post title -->
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <!-- Post metadata: date and author -->
+      <mat-card-subtitle class="post-subtitle">
+        <span class="date">{{ post.createdAt | date : "dd/MM/yyyy HH:mm" }}</span>
+        <span class="author">{{ post.author }}</span>
+      </mat-card-subtitle>
+      <!-- Post content preview -->
+      <mat-card-content>
+        <p>
+          {{ post.content }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

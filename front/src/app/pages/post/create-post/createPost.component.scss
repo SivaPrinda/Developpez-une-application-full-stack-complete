@@ -1,0 +1,44 @@
+/*
+ * Styles for the create-post component.
+ * Defines layout, spacing, and element alignment for the post creation form.
+ */
+
+// Main container for the create post form
+.create-post-container {
+  // Limit the width and center the container
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  // Use flex layout for vertical alignment
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  // Center align all text inside the container
+  text-align: center;
+
+  // Style the heading
+  h2 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  // Position the back button in the top-left corner
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    margin-bottom: -1rem;
+  }
+
+  // Ensure form fields take full width
+  .form-field {
+    width: 100%;
+  }
+
+  // Style the submit button with white text
+  .submit-btn {
+    color: white;
+  }
+  
+}

@@ -3,10 +3,8 @@ package com.openclassrooms.mddapi.services.impl;
 import com.openclassrooms.mddapi.Exception.ResponseEntityException;
 import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
-import com.openclassrooms.mddapi.mappers.UserMapper;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repositories.UserRepository;
-import com.openclassrooms.mddapi.security.TokenBlacklist;
 import com.openclassrooms.mddapi.services.IJWTService;
 import com.openclassrooms.mddapi.services.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
@@ -26,8 +25,6 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final IJWTService jwtService;
-    private final TokenBlacklist tokenBlacklist;
-    private final UserMapper userMapper; // Add UserMapper as a dependency
 
     /**
      * Loads user details by email (used as the username).
@@ -40,7 +37,7 @@ public class UserService implements IUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // When user is not found, we throw an exception which will be caught by exception handler
         return userRepository.findByEmail(username)
-            .orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %s not found", username));
+                .orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %s not found", username));
     }
 
     @Override
@@ -53,7 +50,7 @@ public class UserService implements IUserService {
 
         // TWhen user is registered, the response will contain a JWT token
         return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
-            user, null, user.getAuthorities()
+                user, null, user.getAuthorities()
         ));
     }
 
@@ -81,17 +78,29 @@ public class UserService implements IUserService {
         // To make login action, first we find the user by mail and then we check if the password is correct
         // If nothing matches we throw an exception which will be caught by exception handler
         User loggedUser = userRepository.findByEmail(login.email())
-            .filter(user -> passwordEncoder.matches(login.password(), user.getPassword()))
-            .orElseThrow(() -> new ResponseEntityException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+                .filter(user -> passwordEncoder.matches(login.password(), user.getPassword()))
+                .orElseThrow(() -> new ResponseEntityException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
 
         // And then we generate a JWT token
         return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
-            loggedUser, null, loggedUser.getAuthorities()
+                loggedUser, null, loggedUser.getAuthorities()
         ));
     }
 
     @Override
-    public void logout(String token) {
-        tokenBlacklist.blacklist(token);
+    public User updateUser(User user) {
+        User existingUser = getConnectedUser();
+
+        if (user.getName() != null && !user.getName().isBlank()) {
+            existingUser.setName(user.getName());
+        }
+        if (user.getEmail() != null && !user.getEmail().isBlank()) {
+            existingUser.setEmail(user.getEmail());
+        }
+        if (user.getPassword() != null && !user.getPassword().isBlank()) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+
+        return userRepository.save(existingUser);
     }
 }

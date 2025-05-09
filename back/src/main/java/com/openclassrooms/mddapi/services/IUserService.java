@@ -3,9 +3,12 @@ package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
+import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.Exception.ResponseEntityException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 public interface IUserService extends UserDetailsService {
 
@@ -42,6 +45,11 @@ public interface IUserService extends UserDetailsService {
      */
     String login(LoginUserDTO login);
 
-    void logout(String token);
-
+    /**
+     * Updates the profile information of the currently authenticated user.
+     *
+     * @param user The updated user entity containing the new profile data.
+     * @return The updated User entity.
+     */
+    User updateUser(User user);
 }

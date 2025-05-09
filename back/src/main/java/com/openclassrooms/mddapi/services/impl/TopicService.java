@@ -1,7 +1,11 @@
 package com.openclassrooms.mddapi.services.impl;
 
+import com.openclassrooms.mddapi.Exception.ResponseEntityException;
+import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.ITopicService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.openclassrooms.mddapi.dto.response.TopicDTO;
 import com.openclassrooms.mddapi.mappers.TopicMapper;
@@ -12,18 +16,63 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+/**
+ * Service implementation for managing topics.
+ * Provides operations such as retrieving all topics, subscribing/unsubscribing to a topic,
+ * and retrieving the topics followed by the currently authenticated user.
+ */
 public class TopicService implements ITopicService {
 
     private final TopicRepository topicRepository;
+
+    private final UserService userService;
+
+    private final UserRepository userRepository;
+
+
 
     @Override
     public List<Topic> getAllTopics() {
         return topicRepository.findAll();
     }
 
+
     @Override
     public Topic getById( Long id){
         return topicRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public User subscribeTopic(Long topicId) {
+        User user = userService.getConnectedUser();
+        Topic topic = topicRepository.findById(topicId)
+                .orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "Topic not found", topicId));
+
+        if (!user.getFollowedTopics().contains(topic)) {
+            user.getFollowedTopics().add(topic);
+            user = userRepository.save(user);
+        }
+        return user;
+    }
+
+    @Override
+    public User unsubscribeTopic(Long topicId) {
+        User user = userService.getConnectedUser();
+        Topic topic = topicRepository.findById(topicId)
+                .orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "Topic not found", topicId));
+
+        if (user.getFollowedTopics().contains(topic)) {
+            user.getFollowedTopics().remove(topic);
+            user = userRepository.save(user);
+        }
+        return user;
+    }
+
+    @Override
+    public List<Topic> getFollowedTopics() {
+        User user = userService.getConnectedUser();
+        return user.getFollowedTopics();
+    }
+
 
 }

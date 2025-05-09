@@ -1,0 +1,53 @@
+<!--
+  Sign-in page template.
+  Includes form fields for email/username and password, error message display, and submit logic.
+-->
+
+<!-- Logo and back button for mobile view -->
+<div class="mobile-logo-container mobile-only">
+  <button mat-icon-button class="back-button" routerLink="/">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <img src="/assets/logo_p6.png" alt="logo" class="logo" />
+</div>
+
+<!-- Main sign-in form container -->
+<div class="sign-in-page">
+
+  <!-- Back button for desktop view -->
+  <button mat-icon-button class="back-button desktop-only" routerLink="/">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <!-- Sign-in form heading -->
+  <h2>Se connecter</h2>
+
+  <!-- Reactive form bound to the component class -->
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- Input field for email or username -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>E-mail ou nom d’utilisateur</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <!-- Input field for password with toggle visibility -->
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+      />
+    </mat-form-field>
+
+    <!-- Display error message when login fails -->
+    <div *ngIf="onError" class="error-message">
+      Une erreur est survenue lors de la connexion. Veuillez vérifier vos identifiants.
+    </div>
+
+    <!-- Submit button to trigger login -->
+    <button mat-raised-button type="submit" class="submit-btn">
+      Se connecter
+    </button>
+  </form>
+</div>
