@@ -1,0 +1,22 @@
+-- Insertion de thèmes d'articles
+INSERT INTO topic (name, description) VALUES
+                                         ('Technologie', 'Actualités et tendances dans le monde numérique, logiciels, IA, et plus.'),
+                                         ('Science', 'Découvertes scientifiques, recherches et vulgarisation.'),
+                                         ('Économie', 'Analyse de l’économie locale et mondiale, marché, entreprises.'),
+                                         ('Écologie', 'Environnement, développement durable, et initiatives vertes.'),
+                                         ('Politique', 'Débats, lois, élections et géopolitique.'),
+                                         ('Culture', 'Société, traditions, patrimoine et évolution culturelle.'),
+                                         ('Sport', 'Résultats, analyses et actualité des disciplines sportives.'),
+                                         ('Santé', 'Bien-être, médecine, alimentation et conseils santé.'),
+                                         ('Éducation', 'Pédagogie, apprentissage et innovations éducatives.'),
+                                         ('Voyage', 'Destinations, récits de voyage et conseils aux voyageurs.'),
+                                         ('Art', 'Peinture, sculpture, architecture et mouvements artistiques.'),
+                                         ('Musique', 'Genres musicaux, artistes, critiques et découvertes.'),
+                                         ('Cinéma', 'Films, critiques, festivals et coulisses du 7e art.'),
+                                         ('Livres', 'Romans, essais, critiques littéraires et recommandations.'),
+                                         ('Psychologie', 'Comportement, émotions, développement personnel.'),
+                                         ('Actualité', 'Infos récentes et faits marquants dans le monde.'),
+                                         ('Philosophie', 'Réflexions, courants de pensée et débats philosophiques.'),
+                                         ('Développement personnel', 'Motivation, organisation, confiance et mindset.'),
+                                         ('Mode', 'Tendances vestimentaires, stylistes, et lifestyle.'),
+                                         ('Alimentation', 'Recettes, nutrition, régimes et plaisirs culinaires.');

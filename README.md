@@ -1,25 +1,93 @@
 # P6-Full-Stack-reseau-dev
 
-## Front
+# Read Me First
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+This document outlines the steps required to set up and run this project on your local machine.
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Prerequisites
 
-### Development server
+Before starting, make sure the following are installed on your system:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. **Java 1.8**  
+   Check your Java version:
+   ```
+   java -version
+   ```
 
-### Build
+2. **Maven**  
+   Install Maven and check its version:
+   ```
+   mvn -version
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. **Git**  
+   Clone the project repository with Git:
+   ```
+   git clone https://github.com/SivaPrinda/Developpez-une-application-full-stack-complete.git
+   ```
 
-### Where to start
+4. **MySQL Database**  
+   Set up a MySQL server and run the following file to create the database:
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+    - Execute the file "Test-a-full-stack-application/resources/sql/script.sql".
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+    - Edit the `application.properties` file with your database connection information. For example:
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+   ```
+   spring.datasource.url=jdbc:mysql://localhost:3306/yoga?allowPublicKeyRetrieval=true
+   spring.datasource.username=example
+   spring.datasource.password=example123
+   ```
 
-Good luck!
+## Building and Running the Back-end
+
+Navigate to the project directory:
+
+```
+cd back
+```
+
+Run the following command to build the project:
+
+```
+mvn clean install
+```
+
+Then, run the following command to start the project:
+
+```
+mvn spring-boot:run
+```
+
+### MySQL Database
+Set up a MySQL server
+Run the file "back/src/main/resources/db/scriptTopic.sql" to create topics for the project.
+Run the file "back/src/main/resources/db/scriptPost.sql" to create posts for the project.
+
+## Building and Running the Front-end
+
+Navigate to the project directory:
+
+```
+cd front
+```
+
+Run the following command to install project dependencies:
+
+```
+npm install
+```
+
+Then, run the following command to start the project:
+
+```
+ng serve
+```
+
+## API Documentation
+
+This project includes an auto-generated Swagger UI for testing and exploring the API.
+
+Once the application is running, you can access Swagger UI at:
+
+[http://localhost:3001/swagger-ui/index.html]
