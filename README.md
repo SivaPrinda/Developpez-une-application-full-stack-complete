@@ -8,7 +8,7 @@ This document outlines the steps required to set up and run this project on your
 
 Before starting, make sure the following are installed on your system:
 
-1. **Java 1.8**  
+1. **Java 22**  
    Check your Java version:
    ```
    java -version
