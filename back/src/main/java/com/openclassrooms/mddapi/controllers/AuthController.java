@@ -11,6 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for managing user authentication and profile retrieval.
+ *
+ * <p>This controller exposes endpoints to:</p>
+ * <ul>
+ *   <li>Register a new user (<code>POST /api/auth/register</code>)</li>
+ *   <li>Authenticate an existing user (<code>POST /api/auth/login</code>)</li>
+ *   <li>Retrieve the currently authenticated user's information (<code>GET /api/auth/me</code>)</li>
+ * </ul>
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

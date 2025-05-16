@@ -5,6 +5,13 @@ import com.openclassrooms.mddapi.models.User;
 
 import java.util.List;
 
+/**
+ * Service interface for managing posts topics.
+ *
+ * <p>This interface defines operations for retrieving all topics, accessing a topic by ID,
+ * subscribing or unsubscribing a user from topics, and retrieving the list of topics
+ * followed by the current user.</p>
+ */
 public interface ITopicService {
 
     /**
@@ -43,7 +50,7 @@ public interface ITopicService {
     /**
      * Retrieves the list of topics followed by the currently authenticated user.
      *
-     * @return a list of Topic entities the user follows.
+     * @return a list of topics the user is subscribed to
      */
     List<Topic> getFollowedTopics();
 }

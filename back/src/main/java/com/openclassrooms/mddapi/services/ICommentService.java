@@ -4,6 +4,12 @@ import com.openclassrooms.mddapi.models.Comment;
 
 import java.util.List;
 
+/**
+ * Service interface for managing comments.
+ *
+ * <p>This interface defines the contract for comment-related operations,
+ * such as creating a comment and retrieving comments associated with a post.</p>
+ */
 public interface ICommentService {
 
     /**

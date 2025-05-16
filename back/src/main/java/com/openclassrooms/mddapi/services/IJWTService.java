@@ -1,5 +1,11 @@
 package com.openclassrooms.mddapi.services;
 
+/**
+ * Service interface for handling JWT operations.
+ *
+ * <p>This interface provides methods related to the creation of JSON Web Tokens (JWT)
+ * for authenticated users in the context of Spring Security.</p>
+ */
 import org.springframework.security.core.Authentication;
 
 public interface IJWTService {
