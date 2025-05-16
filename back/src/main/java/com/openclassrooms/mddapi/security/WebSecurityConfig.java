@@ -27,6 +27,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * Security configuration for the web application.
+ * This class configures JWT encoding and decoding, password encoding,
+ * CORS policy, and the security filter chain. It ensures that authentication
+ * is handled using stateless JWT tokens and restricts access to protected resources.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -34,6 +40,11 @@ public class WebSecurityConfig {
     @Autowired
     private TokenBlacklist tokenBlacklist;
 
+    /**
+     * Configures CORS settings to allow cross-origin requests from the frontend.
+     *
+     * @return the configured CorsConfigurationSource
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -49,6 +60,9 @@ public class WebSecurityConfig {
 
     /**
      * Configures the JwtDecoder bean for decoding and validating JWT tokens.
+     *
+     * @param jwtKey the secret key used to validate JWT signatures
+     * @return a JwtDecoder instance
      */
     @Bean
     public JwtDecoder jwtDecoder(@Value("${application.jwt.key}") String jwtKey) {
@@ -59,6 +73,9 @@ public class WebSecurityConfig {
 
     /**
      * Configures the JwtEncoder bean for encoding JWT tokens.
+     *
+     * @param jwtKey the secret key used to sign JWT tokens
+     * @return a JwtEncoder instance
      */
     @Bean
     public JwtEncoder jwtEncoder(@Value("${application.jwt.key}") String jwtKey) {
@@ -67,7 +84,13 @@ public class WebSecurityConfig {
 
     /**
      * Configures the security filter chain.
-     * This defines security rules for HTTP requests and enables JWT-based security.
+     *
+     * <p>This defines security rules for HTTP requests, including which endpoints
+     * are publicly accessible and how authentication is handled via JWT.</p>
+     *
+     * @param http the HttpSecurity configuration object
+     * @return the built SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

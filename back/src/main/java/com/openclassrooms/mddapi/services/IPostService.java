@@ -5,8 +5,10 @@ import com.openclassrooms.mddapi.models.Post;
 import java.util.List;
 
 /**
- * Interface for post-related service operations.
- * Defines the contract for retrieving and creating posts in the application.
+ * Service interface for managing posts.
+ *
+ * <p>This interface defines the contract for operations related to retrieving,
+ * accessing by ID, and creating posts in the application.</p>
  */
 public interface IPostService{
 

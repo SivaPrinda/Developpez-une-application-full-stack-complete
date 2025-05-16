@@ -84,6 +84,24 @@ Then, run the following command to start the project:
 ng serve
 ```
 
+## Javadoc
+
+To generate the Javadoc using Maven, run the following command from the root of the back-end project:
+
+```
+mvn javadoc:javadoc
+```
+
+The generated documentation will be available at:
+
+```
+back/target/site/apidocs/index.html
+```
+
+Open this file in your web browser to view the Javadoc.
+
+
+
 ## API Documentation
 
 This project includes an auto-generated Swagger UI for testing and exploring the API.

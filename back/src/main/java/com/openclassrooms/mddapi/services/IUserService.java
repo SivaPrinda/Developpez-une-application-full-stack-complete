@@ -1,15 +1,19 @@
 package com.openclassrooms.mddapi.services;
 
-
 import com.openclassrooms.mddapi.dto.request.LoginUserDTO;
 import com.openclassrooms.mddapi.dto.request.RegisterUserDTO;
-import com.openclassrooms.mddapi.models.Topic;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.Exception.ResponseEntityException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.List;
 
+/**
+ * Service interface for managing user-related operations.
+ *
+ * <p>This interface defines methods for registering users, handling authentication,
+ * accessing user details, and updating user profiles. It also extends {@link UserDetailsService}
+ * to integrate with Spring Security's authentication system.</p>
+ */
 public interface IUserService extends UserDetailsService {
 
     /**

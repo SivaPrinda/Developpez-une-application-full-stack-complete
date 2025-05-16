@@ -13,6 +13,13 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Entity representing an application user.
+ *
+ * <p>This class is mapped to the <code>USERS</code> table and implements Spring Security's {@link UserDetails}
+ * to integrate with the authentication system. It contains fields such as email, name, password, followed topics,
+ * and timestamps for creation and updates.</p>
+ */
 @Entity
 @Table(name = "USERS")
 @Getter
@@ -20,20 +27,38 @@ import java.util.List;
 @NoArgsConstructor
 public class User implements UserDetails {
 
+    /**
+     * Unique identifier for the user.
+     */
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Email address used as the user's login identifier.
+     */
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    /**
+     * Display name of the user.
+     */
     @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * Encrypted password used for authentication.
+     */
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * The list of topics followed by the user.
+     *
+     * <p>Represents a many-to-many relationship between users and topics,
+     * stored in the <code>user_followed_topics</code> join table.</p>
+     */
     @ManyToMany
     @JoinTable(
             name = "user_followed_topics",
@@ -43,10 +68,18 @@ public class User implements UserDetails {
     )
     private List<Topic> followedTopics;
 
+    /**
+     * Timestamp when the user was created.
+     * Automatically set at creation time.
+     */
     @Column(name = "created_at")
     @CreationTimestamp
     private Instant createdAt;
 
+    /**
+     * Timestamp of the last update to the user.
+     * Automatically updated on modification.
+     */
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Instant updatedAt;

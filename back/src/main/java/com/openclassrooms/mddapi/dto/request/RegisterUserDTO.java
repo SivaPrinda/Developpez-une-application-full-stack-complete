@@ -4,7 +4,16 @@ package com.openclassrooms.mddapi.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 
-// This class is a Data Transfer Object (DTO) used to represent the data required for user registration.
+/**
+ * DTO for user registration.
+ *
+ * <p>This record is used to transfer user information required for account creation,
+ * including email, name, and a password that meets security constraints.</p>
+ *
+ * @param email the email address of the user
+ * @param name the name of the user
+ * @param password the password that meets complexity requirements
+ */
 public record RegisterUserDTO(
 
         @Schema(description = "User email")
